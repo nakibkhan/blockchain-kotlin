@@ -8,6 +8,10 @@ data class Block(val previousHash: String,
                  val nonce: Long = 0,
                  val timestamp: Long = Instant.now().toEpochMilli(),
                  var hash: String = "") {
+
+    private val difficulty = 2
+    private val validPrefix = "0".repeat(difficulty)
+
     init {
         hash = calculateHash()
     }
@@ -19,4 +23,6 @@ data class Block(val previousHash: String,
     companion object    {
         fun create(previousHash: String, data: String ) : Block = Block(previousHash, data)
     }
+
+    fun isMined() = this.hash.startsWith(validPrefix)
 }
