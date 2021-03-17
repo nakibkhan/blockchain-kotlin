@@ -5,6 +5,7 @@ import java.time.Instant
 
 data class Block(val previousHash: String,
                  val data: String,
+                 val nonce: Long = 0,
                  val timestamp: Long = Instant.now().toEpochMilli(),
                  var hash: String = "") {
     init {
@@ -12,7 +13,7 @@ data class Block(val previousHash: String,
     }
 
     fun calculateHash(): String {
-        return "$previousHash$data$timestamp".hash()
+        return "$previousHash$data$timestamp$nonce".hash()
     }
 
     companion object    {
